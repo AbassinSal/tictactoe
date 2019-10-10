@@ -19,25 +19,51 @@ public class GameController {
 
             if (playerOneMove) {
                 System.out.println("Eingabe Spieler Eins: ");
-
                 input = scanner.nextLine();
 
-                int column = Integer.parseInt(String.valueOf(input.charAt(0)));
-                int row = Integer.parseInt(String.valueOf(input.charAt(1)));
+                while (input.equals("")) {
+                        System.out.println("Eingabe darf nicht leer sein");
+                        input = scanner.nextLine();
+                    }
+                    while (Integer.parseInt(String.valueOf(input.charAt(0))) >= 3 ||
+                            Integer.parseInt(String.valueOf(input.charAt(1))) >= 3)
+                        if (input.charAt(0) >= 3 || input.charAt(1) >= 3) {
+                            System.out.println("Eingabe darf nicht über 2 liegen");
+                            System.out.println("Eingabe Spieler Eins: ");
+                            input = scanner.nextLine();
+                        }
 
-                gameField.turn(true, column, row);
 
-                playerOneMove = false;
+                if (input.length() > 1 && input.length() < 3) {
+                    int column = Integer.parseInt(String.valueOf(input.charAt(0)));
+                    int row = Integer.parseInt(String.valueOf(input.charAt(1)));
+
+                    gameField.turn(true, column, row);
+
+                    playerOneMove = false;
+                }
             } else {
                 System.out.println("Eingabe Spieler Zwei: ");
                 input = scanner.nextLine();
 
-                int column = Integer.parseInt(String.valueOf(input.charAt(0)));
-                int row = Integer.parseInt(String.valueOf(input.charAt(1)));
+                if (!input.equals("")) {
+                    while(Integer.parseInt(String.valueOf(input.charAt(0))) >= 3 ||
+                            Integer.parseInt(String.valueOf(input.charAt(1)))  >= 3)
+                    if (input.charAt(0) >= 3 || input.charAt(1) >= 3) {
+                        System.out.println("Eingabe darf nicht über 2 liegen");
+                        System.out.println("Eingabe Spieler Zwei: ");
+                        input = scanner.nextLine();
+                    }
+                }
 
-                gameField.turn(false, column, row);
+                if(input.length() > 1 && input.length() < 3) {
+                    int column = Integer.parseInt(String.valueOf(input.charAt(0)));
+                    int row = Integer.parseInt(String.valueOf(input.charAt(1)));
 
-                playerOneMove = true;
+                    gameField.turn(false, column, row);
+
+                    playerOneMove = true;
+                }
             }
             gameField.draw();
 
